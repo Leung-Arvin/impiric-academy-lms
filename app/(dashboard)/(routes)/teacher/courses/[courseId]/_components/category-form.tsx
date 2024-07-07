@@ -28,7 +28,7 @@ import { Combobox } from "@/components/ui/combobox";
 interface CategoryFormProps {
     initialData: Course;
     courseId: string;
-    options: {label:string; value: string}[];
+    options:{ label:string; value: string;}[];
 };
 
 const formSchema = z.object({
@@ -58,7 +58,7 @@ export const CategoryForm = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/courses/${courseId}`, values);
-            toast.success("Course Title Updated")
+            toast.success("Course Description Updated")
             toggleEdit();
             router.refresh();
         } catch (error) {
@@ -66,11 +66,11 @@ export const CategoryForm = ({
         }
     }
 
-    const selectedOption = options.find((option) => option.value === initialData.categoryId);
+    const selectedOption = options.find((option)=> option.value === initialData.categoryId);
 
     return ( <div className="mt-6 border bg-slate-100 rounded-md p-4"> 
         <div className="font-medium flex items-center justify-between">
-            Course Category
+            Course category
             <Button onClick={toggleEdit} variant="ghost">
                 {isEditing && (
                     <>Cancel</>
@@ -78,7 +78,7 @@ export const CategoryForm = ({
                 {!isEditing && (
                     <>
                     <Pencil className="h-4 w-4 mr-2"/>
-                    Edit Category
+                    Edit category
                     </>
                 )}
                 
@@ -89,7 +89,7 @@ export const CategoryForm = ({
                 "text-sm mt-2",
                 !initialData.categoryId && "text-slate-500 italic"
             )}>
-                {selectedOption?.label || "No category"}
+                {selectedOption?.label || "no category"}
             </p>
         )}
         {isEditing && (
@@ -103,11 +103,10 @@ export const CategoryForm = ({
                         render={({field}) => (
                             <FormItem>
                                 <FormControl>
-                                    console.log(options.value)
-                                <Combobox 
-                                    options={options}
-                                    {...field}
-                                />
+                                    <Combobox 
+                                        options = {...options}
+                                        {...field}
+                                    />
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>

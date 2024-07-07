@@ -11,6 +11,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command"
 import {
   Popover,
@@ -21,8 +22,8 @@ import {
 interface ComboboxProps {
   options: {label:string; value:string}[];
   value?: string;
-  onChange: (value:string) => void;
-}
+  onChange: (value: string) => void;
+};
 
 export const Combobox = ({
   options,
@@ -50,12 +51,15 @@ export const Combobox = ({
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Search option..." />
+          <CommandList>
           <CommandEmpty>No option found.</CommandEmpty>
+          
           <CommandGroup>
+            
             {options.map((option) => (
               <CommandItem
                 key={option.value}
-                
+
                 onSelect={() => {
                   onChange(option.value === value ? "": option.value)
                   setOpen(false)
@@ -70,7 +74,9 @@ export const Combobox = ({
                 {option.label}
               </CommandItem>
             ))}
+            
           </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>

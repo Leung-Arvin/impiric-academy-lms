@@ -11,6 +11,7 @@ import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
 import { Banner } from "@/components/ui/banner";
+import { Actions } from "./_components/actions";
 
 const CourseIdPage = async ({
     params
@@ -86,7 +87,11 @@ const CourseIdPage = async ({
                     Complete all fields {completionText}
                 </span>
             </div>
-            {/*Add  Actions*/}
+            <Actions 
+                disabled={!isComplete}
+                courseId={params.courseId}
+                isPublished={course.isPublished}
+            />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
             <div>
@@ -108,7 +113,14 @@ const CourseIdPage = async ({
                     initialData = {course}
                     courseId= {course.id}
                 />
-                
+                <CategoryForm
+                    initialData={course}
+                    courseId = {course.id}
+                    options = {(categories.map((category) => ({
+                        label: category.name,
+                        value: category.id,
+                    })))}
+                />
             </div>
             <div className="space-y-6">
                 <div>

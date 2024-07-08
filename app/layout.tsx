@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton} from "@clerk/nextjs";
 import { ToastProvider } from "@/components/providers/toaster-provider";
 import Head from "next/head";
+import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
     <body className ={inter.className}>
+          <ConfettiProvider />
           <ToastProvider />
           
             {children}

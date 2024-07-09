@@ -11,7 +11,8 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["mongodb"]
+  
+  previewFeatures = ["fullTextSearch","fullTextIndex"]
 }
 
 model Course {
@@ -36,6 +37,7 @@ model Course {
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
+  @@fulltext([title])
 }
 
 model Category {

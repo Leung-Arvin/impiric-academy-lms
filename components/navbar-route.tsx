@@ -59,7 +59,7 @@ export const NavbarRoutes = () => {
                 </div>
                 ): (
                     <SignedIn>
-                        <SignOutButton  mode="modal">
+                        <SignOutButton>
                         
                         <Button size="sm" variant="ghost">
                         Sign Out

@@ -47,7 +47,7 @@ export const ChapterVideo = ({
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData?.videoUrl || ""
+        defaultValues: { videoUrl: initialData?.videoUrl || undefined }
     });
 
     const { isSubmitting,isValid} = form.formState;
@@ -93,7 +93,7 @@ export const ChapterVideo = ({
                 </div>
             ) : (
                 <div className="relative aspect-video mt-2">
-                    <iframe className="w-full h-full" src={initialData.videoUrl} frameborder="0" allowfullscreen></iframe>
+                    <iframe className="w-full h-full" src={initialData.videoUrl}  allowFullScreen></iframe>
                 </div>
             )
         )}

@@ -43,15 +43,15 @@ export async function DELETE(
         }
 
         if (chapter.videoUrl) {
-            const existingMuxData = await db.muxData.findFirst({
+            const existingMuxData = await db.video.findFirst({
                 where: {
                     chapterId: params.chapterId,
                 }
             });
 
             if (existingMuxData) {
-                await Video.video.assets.delete(existingMuxData.assetId);
-                await db.muxData.delete({
+                
+                await db.video.delete({
                     where: {
                         id: existingMuxData.id,
                     }
@@ -92,7 +92,7 @@ export async function DELETE(
 
 export async function PATCH(
     req:Request,
-    {params} : {params: {courseId: string; chapterId:string}}
+    {params} : {params: {courseId: string; chapterId:string; videoUrl: string;}}
 ) {
     try {
         const {userId} = auth();
@@ -117,44 +117,12 @@ export async function PATCH(
             where: {
                 id: params.chapterId,
                 courseId: params.courseId,
+                videoUrl: params.videoUrl,
             },
             data: {
                 ...values,
             }
         });
-
-        if (values.videoUrl) {
-            const existingMuxData = await db.muxData.findFirst({
-                where: {
-                    chapterId: params.chapterId,
-                }
-            });
-            
-
-            // clean up function to replace the video
-            if (existingMuxData) {
-                await Video.video.assets.delete(existingMuxData.assetId);
-                await db.muxData.delete({
-                    where: {
-                        id: existingMuxData.id,
-                    }
-                });
-            }
-
-            const asset = await Video.video.assets.create({
-                input: values.videoUrl,
-                playback_policy: ["public"],
-                test: false,
-            });
-
-            await db.muxData.create({
-                data: {
-                    chapterId: params.chapterId,
-                    assetId: asset.id,
-                    playbackId: asset.playback_ids?.[0]?.id,
-                }
-            });
-        }
 
 
         return NextResponse.json(chapter);

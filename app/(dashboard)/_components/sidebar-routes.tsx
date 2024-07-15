@@ -21,12 +21,7 @@ const teacherRoutes = [
         icon: List,
         label: "Courses",
         href: "/teacher/courses",
-    },
-    {
-        icon: BarChart,
-        label: "Analytics",
-        href: "/teacher/analytics",
-    },
+    }
 ]
 export const SiderbarRoutes = () => {
     const pathname = usePathname();

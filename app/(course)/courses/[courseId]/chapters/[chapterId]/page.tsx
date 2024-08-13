@@ -6,7 +6,7 @@ import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/ui/preview";
-import { File } from "lucide-react";
+import { File, Loader2, Lock, LockIcon } from "lucide-react";
 import { CourseProgressButton } from "./_components/course-progress-button";
 
 
@@ -58,9 +58,11 @@ const ChapterIdPage = async ({
             )}
             <div className="flex flex-col max-w-4xl mx-auto pb-20 ">
                 <div className="p-4">
-                    <iframe src={chapter.videoUrl!} className="h-full w-full aspect-video">
-
-                    </iframe>
+                    { purchase ? <iframe src={chapter.videoUrl!} className="h-full w-full aspect-video">
+                    </iframe> : 
+                         <div className=" h-full w-full flex items-center justify-center bg-slate-800">
+                            <Loader2 className="h-8 w-8 animate-spin text-secondary"/>
+                        </div>}
                 </div>
                 <div>
                     <div className="p-4 flex flex-col md:flex-row items-center justify-between">
